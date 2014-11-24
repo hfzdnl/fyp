@@ -1,0 +1,174 @@
+//Application Window Component Constructor
+function ApplicationWindow() {
+	//load component dependencies
+	var FirstView = require('ui/common/FirstView');
+
+	var loginWin = Titanium.UI.createWindow({
+		title : "Warranty Tracker",
+		backgroundColor : "white"
+	});
+
+	var user = Ti.UI.createLabel({
+		text : "Email Address",
+		color : "black",
+		font : {
+			fontSize : 17
+		},
+		top : '25%',
+		left : '5%',
+		textAlign : 'center'
+	});
+
+	loginWin.add(user);
+
+	var userName = Ti.UI.createTextField({
+		borderStyle : Ti.UI.INPUT_BORDERSTYLE_LINE,
+		borderColor : 'black',
+		color : 'black',
+		font : {
+			fontSize : 15
+		},
+		textAlign : 'left',
+		top : '30%',
+		left : '5%',
+		width : 250,
+		height : 30,
+
+		editable : true,
+		hintText : "Enter your email here"
+	});
+
+	userName.addEventListener("focus", function(e) {
+		if (e.value == "Enter your email here") {
+			e.source.value = "";
+		}
+	});
+
+	userName.addEventListener("blur", function(e) {
+		if (e.value == "") {
+			e.source.value = "Enter your email here";
+		}
+	});
+
+	var passWord = Ti.UI.createLabel({
+		text : "Password",
+		color : "#000",
+		font : {
+			fontSize : 17
+		},
+		top : '38%',
+		left : '5%',
+		textAlign : 'center'
+	});
+
+	loginWin.add(passWord);
+
+	var passWordField = Ti.UI.createTextField({
+		borderStyle : Ti.UI.INPUT_BORDERSTYLE_LINE,
+		borderColor : 'black',
+		color : 'black',
+		font : {
+			fontSize : 15
+		},
+		textAlign : 'left',
+		top : '43%',
+		left : '5%',
+		width : 250,
+		height : 30,
+
+		editable : true,
+		passwordMask : true,
+		hintText : "Enter your password here"
+	});
+
+	passWordField.addEventListener("focus", function(e) {
+		if (e.value == "Enter your password here") {
+			e.source.value = "";
+		}
+	});
+
+	passWordField.addEventListener("blur", function(e) {
+		if (e.value == "") {
+			e.source.value = "Enter your password here";
+		}
+	});
+
+	var submitBtn = Ti.UI.createButton({
+		title : "Submit",
+		width : "23%",
+		height : "8%",
+		top : "60%",
+		left : "70%",
+		color : '#515252',
+		font : {
+			fontSize : 14
+		},
+		id : "Submit Button"
+	});
+
+	submitBtn.addEventListener("click", function(e) {
+		if (e.value == '') {
+			alert("Please complete all empty fields");
+		} else {
+			var HomeWindow = require('ui/handheld/android/HomeWindow');
+
+			var hwindow = new HomeWindow();
+			hwindow.open();
+		}
+	});
+
+	//register
+	var registerBtn = Titanium.UI.createButton({
+		title : "Register",
+		width : "25%",
+		height : "10%",
+		top : "10%",
+		left : "70%",
+		color : '#515252',
+		font : {
+			fontSize : 15
+		},
+		id : "Register Button"
+	});
+
+	registerBtn.addEventListener("click", function(e) {
+		var RegisterWindow = require('ui/handheld/android/RegisterWindow');
+
+		var rwindow = new RegisterWindow();
+		rwindow.open();
+	});
+
+	//forget
+	var forgetBtn = Titanium.UI.createButton({
+		title : "Forgotten your password?",
+		width : "43%",
+		height : "10%",
+		top : "59%",
+		left : "10%",
+		color : '#515252',
+		font : {
+			fontSize : 14
+		},
+		id : "Forget Button"
+	});
+
+	forgetBtn.addEventListener("click", function(e) {
+		var ForgotWindow = require('ui/handheld/android/ForgotWindow');
+
+		var fwindow = new ForgotWindow();
+		fwindow.open();
+	});
+
+	loginWin.add(userName);
+	loginWin.add(passWordField);
+	loginWin.add(submitBtn);
+	loginWin.add(registerBtn);
+	loginWin.add(forgetBtn);
+
+	loginWin.open();
+	
+	return loginwin;
+}
+
+//make constructor function the public component interface
+module.exports = ApplicationWindow;
